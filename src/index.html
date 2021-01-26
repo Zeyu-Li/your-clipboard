@@ -2,11 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Clipboard 📋</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <h1>Your Clipboard 📋</h1>
+    <div class="main">
+      <!-- test card -->
+      <div class="card">
+        <p>Some random thingSome random thingSome random thing</p>
+        <!-- when hover <button id="edit">Edit</button><button title="copy" id="copy">📋</button> <button title="remove" id="remove">🚫</button> -->
+      </div>
+    </div>
+    <button class="add-item" onclick="add_item_clicked()">Add</button>
+    <script src="content.js"></script>
   </body>
 </html>

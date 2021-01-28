@@ -12,7 +12,6 @@ body {
 }
 
 a, button {
-  
   cursor: pointer;
 }
 
@@ -26,13 +25,12 @@ hr {
 }
 
 /* Transition */
-.add-item {
-    transition: .2s;
-    -moz-transition: .2s;
-    -webkit-transition: .2s;
-    -o-transition: .2s;
+.add-item, .card, .item-btn p {
+  transition: .2s;
+  -moz-transition: .2s;
+  -webkit-transition: .2s;
+  -o-transition: .2s;
 }
-
 
 /* main */
 .add-item {
@@ -50,3 +48,46 @@ hr {
   background-color: #2d8aee;
 }
 
+/* Each card */
+.card {
+  width: 95%;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.card:hover {
+  border: 1px solid rgba(0, 0, 0, 0.74);
+  background-color: rgba(250, 245, 215, 0.836);
+}
+
+/* item button */
+.item-btn {
+  position: absolute;
+  right: -1px;
+  top: 3px;
+  display: none;
+}
+.item-btn > p {
+  background-color: white;
+  padding: 3px;
+  margin: 0px;
+  height: 30px;
+  display: inline;
+  border: 1px solid rgba(0, 0, 0, 0.74);
+}
+#edit:hover {
+  background-color: #007bff;
+  color: white;
+}
+#copy:hover {
+  background-color: #ffc107;
+}
+#remove:hover {
+  background-color: #dc3545;
+}
+#remove {
+  border-top-right-radius: 10px;
+}

@@ -14,11 +14,29 @@ function add_item() {
     main.innerHTML += card_html
 }
 
+
+// event listeners
+// is user presses ctrl-b, then rebuild
+document.addEventListener("keydown", function(e){
+    if(e.ctrlKey && e.keyCode == 78) {
+        add_item_clicked();
+    }
+});
 function add_item_clicked() {
-    alert("Added item");
+    // show popup
+    $('.popup').show();
+}
+function add_item() {
+    $('.popup').hide();
+    // alert("Added item");
     // if successful
     main.innerHTML += card_html
     // update storage
+}
+
+function cancel() {
+    // remove popup
+    $('.popup').hide();
 }
 
 // if add item is clicked while new item flag, highlight last empty box

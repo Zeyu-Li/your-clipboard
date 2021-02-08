@@ -34,6 +34,9 @@ hr {
 }
 
 /* main */
+.main {
+  margin-bottom: 10px;
+}
 .add-item {
   color: whitesmoke;
   background-color: #1775D9;
@@ -65,12 +68,14 @@ hr {
   border-radius: 10px;
   padding-left: 10px;
   padding-right: 10px;
-  cursor: pointer;
   position: relative;
 }
 .card:hover {
   border: 1px solid rgba(0, 0, 0, 0.74);
   background-color: rgba(250, 245, 215, 0.836);
+}
+.card #text, .item-btn {
+  cursor: pointer;
 }
 
 /* item button */

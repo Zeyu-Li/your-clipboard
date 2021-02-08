@@ -25,6 +25,14 @@
         <button class="add-item red inline red" onclick="cancel()">Cancel</button>
       </div>
     </div>
+    <div class="edit">
+      <div class="popup_container">
+        <p>Edit item</p>
+        <input placeholder="Edit clipboard item" type="text" id="to_edit" value="">
+        <button class="add-item inline blue" onclick="edit_current_item()">Submit</button>
+        <button class="add-item red inline red" onclick="cancel_edit()">Cancel</button>
+      </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="content.js"></script>

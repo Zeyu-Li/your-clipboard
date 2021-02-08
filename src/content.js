@@ -1,5 +1,5 @@
 
-let data
+let data, current_edit
 let new_item_flag = false
 let main = document.querySelector('.main')
 let card = document.querySelector('.card')
@@ -19,6 +19,28 @@ function add_item_clicked() {
     $('#to_add').val("")
 }
 
+function edit_current_item() {
+    // hide edit
+    $('.edit').hide()
+
+    let note = $("#to_edit").val()
+
+    console.log(note);
+    
+
+    // if empty, remove
+    if (note === "") {
+        remove(current_edit)
+        return
+    }
+    // updates render
+    $(`.card${current_edit} #text`).text(note)
+
+    // updates current
+    data[current_edit] = note
+    localStorage.setItem('clipboard', JSON.stringify(data))
+}
+
 function add_current_item() {
     $('.popup').hide()
     
@@ -35,8 +57,8 @@ function add_current_item() {
     
     
     main.innerHTML += `<div class="card card${new_index}" onmouseover="show_btns(this)" onmouseout="hide_btns(this)">
-    <p id="text" onclick="copy_to_clipboard('${note}')">${note}</p>
-    <div class="item-btn"><p id="edit" onclick="edit(${new_index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard('${note}')">📋</p><p title="remove" id="remove" onclick="remove(${new_index})">❌</p></div>
+    <p id="text" onclick="copy_to_clipboard(${new_index})">${note}</p>
+    <div class="item-btn"><p id="edit" onclick="edit(${new_index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard(${new_index})">📋</p><p title="remove" id="remove" onclick="remove(${new_index})">❌</p></div>
     <hr></div>`
     // update storage
     data[new_index] = note
@@ -44,17 +66,19 @@ function add_current_item() {
 }
 function add_item(index, string) {
     main.innerHTML += `<div class="card card${index}" onmouseover="show_btns(this)" onmouseout="hide_btns(this)">
-    <p id="text" onclick="copy_to_clipboard('${string}')">${string}</p>
-    <div class="item-btn"><p id="edit" onclick="edit(${index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard('${string}')">📋</p><p title="remove" id="remove" onclick="remove(${index})">❌</p></div>
+    <p id="text" onclick="copy_to_clipboard('${index}')">${string}</p>
+    <div class="item-btn"><p id="edit" onclick="edit(${index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard(${index})">📋</p><p title="remove" id="remove" onclick="remove(${index})">❌</p></div>
     <hr></div>`
 }
 
 function cancel() {
-    // remove popup
+    // hide popup
     $('.popup').hide()
 }
-
-// if add item is clicked while new item flag, highlight last empty box
+function cancel_edit() {
+    // hide edit
+    $('.edit').hide()
+}
 
 function init() {
     if (data !== null) {
@@ -69,10 +93,14 @@ function init() {
 init()
 
 function edit(number) {
-    console.log(`Editing ${data[number]}`)
+    $('.edit').show()
+    $('#to_edit').val(data[number])
+    // set current edit number
+    current_edit = number
 }
 
 function remove(number) {
+    // removes from data
     delete data[number]
     // save
     localStorage.setItem('clipboard', JSON.stringify(data))
@@ -81,7 +109,8 @@ function remove(number) {
 }
 
 // copies to clipboard
-function copy_to_clipboard(text) {
+function copy_to_clipboard(num) {
+    let text = data[num]
     navigator.clipboard.writeText(text)
 }
 // show buttons when mouse over

@@ -26,7 +26,7 @@ hr {
 }
 
 /* Transition */
-.add-item, .card, .item-btn p, .popup {
+.add-item, .card, .item-btn p, .popup, .edit {
   transition: .2s;
   -moz-transition: .2s;
   -webkit-transition: .2s;
@@ -107,7 +107,7 @@ hr {
   border-top-right-radius: 10px;
 }
 /* popup */
-.popup {
+.popup, .edit {
   display: none;
   z-index: 10;
   position: fixed;

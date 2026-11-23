@@ -6,7 +6,12 @@ let card = document.querySelector('.card')
 // read json from local storage and put in card
 data = JSON.parse(localStorage.getItem('clipboard'))
 
-// event listeners
+// event listeners (wired here rather than inline, so the CSP can forbid inline script)
+document.getElementById('add_button').addEventListener('click', add_item_clicked)
+document.getElementById('add_submit').addEventListener('click', add_current_item)
+document.getElementById('add_cancel').addEventListener('click', cancel)
+document.getElementById('edit_submit').addEventListener('click', edit_current_item)
+document.getElementById('edit_cancel').addEventListener('click', cancel_edit)
 // is user presses ctrl-b, then rebuild
 document.addEventListener("keydown", function(e){
     if(e.ctrlKey && e.keyCode == 78) {
@@ -56,19 +61,41 @@ function add_current_item() {
     }
     
     
-    main.innerHTML += `<div class="card card${new_index}" onmouseover="show_btns(this)" onmouseout="hide_btns(this)">
-    <p id="text" onclick="copy_to_clipboard(${new_index})">${note}</p>
-    <div class="item-btn"><p id="edit" onclick="edit(${new_index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard(${new_index})">📋</p><p title="remove" id="remove" onclick="remove(${new_index})">❌</p></div>
-    <hr></div>`
+    add_item(new_index, note)
     // update storage
     data[new_index] = note
     localStorage.setItem('clipboard', JSON.stringify(data))
 }
+// builds the card with DOM APIs so clipboard text is shown as text, never parsed as HTML
 function add_item(index, string) {
-    main.innerHTML += `<div class="card card${index}" onmouseover="show_btns(this)" onmouseout="hide_btns(this)">
-    <p id="text" onclick="copy_to_clipboard('${index}')">${string}</p>
-    <div class="item-btn"><p id="edit" onclick="edit(${index})">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard(${index})">📋</p><p title="remove" id="remove" onclick="remove(${index})">❌</p></div>
-    <hr></div>`
+    const card_div = document.createElement('div')
+    card_div.className = `card card${index}`
+    card_div.addEventListener('mouseover', () => show_btns(card_div))
+    card_div.addEventListener('mouseout', () => hide_btns(card_div))
+
+    const text = document.createElement('p')
+    text.id = 'text'
+    text.textContent = string
+    text.addEventListener('click', () => copy_to_clipboard(index))
+
+    const buttons = document.createElement('div')
+    buttons.className = 'item-btn'
+    buttons.append(
+        item_button('edit', 'Edit', () => edit(index)),
+        item_button('copy', '📋', () => copy_to_clipboard(index)),
+        item_button('remove', '❌', () => remove(index)),
+    )
+
+    card_div.append(text, buttons, document.createElement('hr'))
+    main.append(card_div)
+}
+function item_button(id, label, on_click) {
+    const button = document.createElement('p')
+    button.id = id
+    button.title = id
+    button.textContent = label
+    button.addEventListener('click', on_click)
+    return button
 }
 
 function cancel() {

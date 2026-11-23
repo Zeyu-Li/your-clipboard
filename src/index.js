@@ -12,8 +12,18 @@ const createWindow = () => {
     width: 600,
     height: 800,
     minWidth: 300,
+    webPreferences: {
+      // Electron's secure defaults, stated explicitly: the page gets no Node.js access.
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+    },
   });
   mainWindow.setMenuBarVisibility(false);
+
+  // Keep the window on the bundled page: block navigation (e.g. a dropped link) and new windows.
+  mainWindow.webContents.on('will-navigate', (event) => event.preventDefault());
+  mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));

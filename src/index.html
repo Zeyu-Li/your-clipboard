@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'">
     <title>Your Clipboard</title>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="../icon.ico">
@@ -15,27 +16,27 @@
         <div class="item-btn"><p id="edit" onclick="edit(0)">Edit</p><p title="copy" id="copy" onclick="copy_to_clipboard(0)">📋</p><p title="remove" id="remove" onclick="remove(0)">❌</p></div>
       </div> -->
     </div>
-    <button class="add-item" onclick="add_item_clicked()">Add</button>
+    <button class="add-item" id="add_button">Add</button>
 
     <!-- popup -->
     <div class="popup">
       <div class="popup_container">
         <p>Add item</p>
         <input placeholder="Enter clipboard item" type="text" id="to_add" value="">
-        <button class="add-item inline blue" onclick="add_current_item()">Add</button>
-        <button class="add-item red inline red" onclick="cancel()">Cancel</button>
+        <button class="add-item inline blue" id="add_submit">Add</button>
+        <button class="add-item red inline red" id="add_cancel">Cancel</button>
       </div>
     </div>
     <div class="edit">
       <div class="popup_container">
         <p>Edit item</p>
         <input placeholder="Edit clipboard item" type="text" id="to_edit" value="">
-        <button class="add-item inline blue" onclick="edit_current_item()">Submit</button>
-        <button class="add-item red inline red" onclick="cancel_edit()">Cancel</button>
+        <button class="add-item inline blue" id="edit_submit">Submit</button>
+        <button class="add-item red inline red" id="edit_cancel">Cancel</button>
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="content.js"></script>
   </body>
 </html>
